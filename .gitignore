@@ -1,0 +1,22 @@
+#ignore build files and executables
+build/
+*.exe
+*.dll
+*.pdb
+*.obj
+*.o
+*.a
+*.lib
+
+# Qt-specific files
+.qmake.stash
+*.pro.user
+*.qtc
+*.qrc
+moc_*
+ui_*
+qrc_*
+
+# Ignore logs and temp files
+*.log
+*.cache
