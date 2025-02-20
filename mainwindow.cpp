@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     }
 
-
+    // connects the equals, clear, history, and clears history buttons
     connect(ui->buttonEquals, &QPushButton::clicked, this, &MainWindow::onEqualsClicked);
     connect(ui->buttonClear, &QPushButton::clicked, this, &MainWindow::onClearClicked);
     connect(ui->buttonHistory, &QPushButton::clicked, this, &MainWindow::onHistoryClicked);
@@ -47,7 +47,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-
+// displays the text on the number button clicked
 void MainWindow::onNumberClicked() {
     QPushButton *button = qobject_cast<QPushButton*>(sender());
     if (!button) return;
@@ -56,7 +56,7 @@ void MainWindow::onNumberClicked() {
     ui->display->setText(currentInput);
 }
 
-
+// handles the operator buttons for the calculator
 void MainWindow::onOperatorClicked() {
     if (currentInput.isEmpty()) return;
 
@@ -74,7 +74,7 @@ void MainWindow::onOperatorClicked() {
 
 }
 
-
+// performs the calculation when equals is clicked and catches invalid inputs and displays an error message for them. Displays the results of the calculation to the display
 void MainWindow::onEqualsClicked() {
     if (currentInput.isEmpty()) return;
 
@@ -97,18 +97,18 @@ void MainWindow::onEqualsClicked() {
 
 
 
-
+// clears the display and inputs when the clear button is clicked
 void MainWindow::onClearClicked() {
     currentInput.clear();
     firstOperand = 0;
     currentOperator = '\0';
     ui->display->clear();
 }
-
+// displays the users history when the history button is clicked
 void MainWindow::onHistoryClicked() {
     QMessageBox::information(this, "History", backend.getHistory());
 }
-
+// opens the file the users history is stored in and deletes the contents of it as well as closes it.
 void MainWindow::deleteHistory() {
     QFile file("history.txt");
     if (file.open(QIODevice::WriteOnly | QIODevice::Truncate)) {
