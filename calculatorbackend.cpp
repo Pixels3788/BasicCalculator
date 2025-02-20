@@ -5,6 +5,7 @@
 
 CalculatorBackend::CalculatorBackend() {}
 
+// handles the calculations
 double CalculatorBackend::calculate(double num1, char op, double num2) {
     double result = 0;
     switch(op) {
@@ -23,7 +24,7 @@ double CalculatorBackend::calculate(double num1, char op, double num2) {
     return result;
 }
 
-
+// handles saving results to the history file
 void CalculatorBackend::saveResult(double num1, char op, double num2, double result) {
     QString entry = QString("%1 %2 %3 = %4").arg(num1).arg(op).arg(num2).arg(result);
     history.push_back(entry);
@@ -35,7 +36,7 @@ void CalculatorBackend::saveResult(double num1, char op, double num2, double res
     }
 }
 
-
+// opens and reads the contents of the history file
 QString CalculatorBackend::getHistory() const {
     std::ifstream file("history.txt");
     if (!file.is_open()) return "Error: Unable to open history.";
@@ -44,14 +45,14 @@ QString CalculatorBackend::getHistory() const {
     buffer << file.rdbuf();
     return QString::fromStdString(buffer.str());
 }
-
+// validates the input for numbers
 bool CalculatorBackend::validateNumber(const QString& input, double& output) {
     bool ok;
 
     output = input.toDouble(&ok);
     return ok;
 }
-
+// validates the inputs for operators
 bool CalculatorBackend::validateOperator(QChar op) {
     return op == '+' || op == '-' || '*' || op == '/' || op == '^';
 }
